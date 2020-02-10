@@ -4,26 +4,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 public class ContactApp {
     public static void main(String[] args) {
-//        System.out.printf("%20%s | %s20 | %s20\n", "Name", "Number", "E-Mail");
-//        Contact testContact = new Contact("Daniel", "999-000-0000", "danf@gmail.com");
-//        testContact.printContact();
-//        Contact testContactTwo = new Contact("Will", "999-000-4400", "will@gmail.com");
-//        testContactTwo.printContact();
 
         ArrayList<Contact> contacts = parseContacts("data", "contacts.txt");
-        System.out.println("");
-        for(Contact contact : contacts) {
-            contact.printContact();
-        }
 
+        Scanner userInput = new Scanner(System.in);
+        System.out.printf("%-20s |*| %-27s |*| %20s\n", "     **********     ", "Welcome to Contacts Manager", "     **********     ");
+        System.out.printf("%-20s |*| %-27s |*| %20s\n", "        Name        ", "          Number           ", "       Email        ");
 
-        Contact newContact = new Contact("Dave Chappelle", "333-333-3333", "dcp@gmail.com");
-        contacts.add(newContact);
-        updateContactsFile(contacts);
+        printContacts(contacts);
+//        updateContactsFile(contacts);
 
     }
 
@@ -56,4 +50,13 @@ public class ContactApp {
             ioe.printStackTrace();
         }
     }
+
+    public static void printContacts(ArrayList<Contact> inputContacts){
+        System.out.println("");
+        for(Contact contact : inputContacts) {
+            contact.printContact();
+        }
+    }
+
+
 }
