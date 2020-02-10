@@ -1,22 +1,41 @@
+package contacts;
+
+//import contacts.Contact;
+import util.Input;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class ContactApp {
     public static void main(String[] args) {
-
         ArrayList<Contact> contacts = parseContacts("data", "contacts.txt");
+        Input input = new Input();
+        int userInput = 1;
+        String newContactName;
+        String newContactNumber;
+        String newContactEmail;
 
-        Scanner userInput = new Scanner(System.in);
         System.out.printf("%-20s |*| %-27s |*| %20s\n", "     **********     ", "Welcome to Contacts Manager", "     **********     ");
-        System.out.printf("%-20s |*| %-27s |*| %20s\n", "        Name        ", "          Number           ", "       Email        ");
 
-        printContacts(contacts);
+        while(true) {
+            System.out.println("1 - See Contacts");
+            System.out.println("2 - Add a contacts.Contact");
+            System.out.println("3 - Exit");
+            userInput = input.getInt();
+            if(userInput == 1) {
+                printContacts(contacts);
+            } else if (userInput == 2) {
+
+            } else if (userInput == 3) {
+                return;
+            }
+        }
+
+//        printContacts(contacts);
 //        updateContactsFile(contacts);
 
     }
@@ -53,6 +72,7 @@ public class ContactApp {
 
     public static void printContacts(ArrayList<Contact> inputContacts){
         System.out.println("");
+        System.out.printf("%-20s |*| %-27s |*| %20s\n", "        Name        ", "          Number           ", "       Email        ");
         for(Contact contact : inputContacts) {
             contact.printContact();
         }
