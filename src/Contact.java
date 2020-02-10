@@ -11,6 +11,10 @@ public class Contact {
         this.email = inputEmail;
     }
 
+    public void printContact() {
+        System.out.printf("%-20s |*| %-12s |*| %-20s\n", this.name, this.number, this.email);
+    }
+
     public void setName(String inputName) {
         this.name = inputName;
     }
