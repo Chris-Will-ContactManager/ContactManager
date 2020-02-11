@@ -1,8 +1,6 @@
 package contacts;
 
-//import contacts.Contact;
 import util.Input;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,20 +21,30 @@ public class ContactApp {
 
         while(true) {
             System.out.println("1 - See Contacts");
-            System.out.println("2 - Add a contacts.Contact");
+            System.out.println("2 - Add a Contact");
             System.out.println("3 - Exit");
-            userInput = input.getInt();
+            userInput = input.getInt("Selection: ");
             if(userInput == 1) {
                 printContacts(contacts);
             } else if (userInput == 2) {
-
+                newContactName = input.getString("New Contact Name: ");
+                if(checkDuplicateNames(contacts, newContactName)) {
+                    System.out.println("This name already exists. Would you like to overwrite it? (y/n)");
+                    String overWriteName = input.getString();
+                    if(overWriteName.toLowerCase().equals("n")) {
+                        continue;
+                    }
+                }
+                newContactNumber = input.getString("New Contact Phone Number: ");
+                newContactEmail = input.getString("New Contact Email: ");
+                Contact newContact = new Contact(newContactName, newContactNumber, newContactEmail);
+                contacts.add(newContact);
             } else if (userInput == 3) {
-                return;
+                System.out.println("Goodbye.");
+                updateContactsFile(contacts);
+                break;
             }
         }
-
-//        printContacts(contacts);
-//        updateContactsFile(contacts);
 
     }
 
@@ -76,6 +84,15 @@ public class ContactApp {
         for(Contact contact : inputContacts) {
             contact.printContact();
         }
+    }
+
+    public static boolean checkDuplicateNames(ArrayList<Contact> inputContacts, String inputName) {
+        for(Contact contact : inputContacts) {
+            if(inputName.equals(contact.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
