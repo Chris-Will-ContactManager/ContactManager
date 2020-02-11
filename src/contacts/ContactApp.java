@@ -2,9 +2,8 @@ package contacts;
 
 import util.Input;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -18,21 +17,18 @@ public class ContactApp {
         String newContactEmail;
         String deleteContactName;
 
-        deleteContact(contacts,"Satan");
-
-        System.out.printf("%-28s |*| %-28s |*| %-28s\n", "+--------***********-------+", "Welcome to Contacts Manager", "+--------***********--------+");
+        System.out.printf("%-28s |*| %-27s |*| %-28s\n", "+--------***********-------+", "Welcome to Contacts Manager", "+--------***********--------+");
 
         while(true) {
-            System.out.printf("%-28s |*| %-28s |*| %-28s\n", "1 - See Contacts", "     2 - Add a Contact", "3 - Delete Contact");
-            System.out.printf("%-28s |*| %-28s |*| %-28s\n", "4 - Exit", "", "");
-//            System.out.println("1 - See Contacts");
-//            System.out.println("2 - Add a Contact");
-//            System.out.println("3 - Delete Contact");
-//            System.out.println("4 - Exit");
+            System.out.printf("%-28s |*| %-27s |*| %-28s\n", "1 - See Contacts", "     2 - Sort Contacts", "3 - Add Contact");
+            System.out.printf("%-28s |*| %-27s |*| %-28s\n", "4 - Delete Contact", "          5 - Exit", "");
             userInput = input.getInt("Selection: ");
             if(userInput == 1) {
                 printContacts(contacts);
             } else if (userInput == 2) {
+                ArrayList<Contact> temporaryContactList = sortContacts(contacts);
+                printContacts(temporaryContactList);
+            } else if (userInput == 3) {
                 newContactName = input.getString("New Contact Name: ");
                 if (checkDuplicateNames(contacts, newContactName)) {
                     System.out.println("This name already exists. Would you like to overwrite it? (y/n)");
@@ -46,16 +42,21 @@ public class ContactApp {
                 newContactEmail = input.getString("New Contact Email: ");
                 Contact newContact = new Contact(newContactName, newContactNumber, newContactEmail);
                 contacts.add(newContact);
-            } else if (userInput == 3) {
+            } else if (userInput == 4) {
                 deleteContactName = input.getString("Which contact would you like to Delete?: ");
                 deleteContact(contacts, deleteContactName);
-            } else if (userInput == 4) {
+            } else if (userInput == 5) {
                 System.out.println("Goodbye.");
                 updateContactsFile(contacts);
                 break;
             }
         }
 
+    }
+
+    public static ArrayList<Contact> sortContacts(ArrayList<Contact> inputContacts) {
+        inputContacts.sort(Comparator.comparing(Contact::getName));
+        return inputContacts;
     }
 
     public static ArrayList<Contact> parseContacts(String inputDirectory, String inputFilename) {
@@ -90,12 +91,12 @@ public class ContactApp {
 
     public static void printContacts(ArrayList<Contact> inputContacts){
         System.out.println("");
-        System.out.printf("%-28s |*| %-28s |*| %-20s\n", "            Name", "           Number", "            Email");
-        System.out.printf("%-28s |*| %-28s |*| %-20s\n", "+--------***********-------+", "+-------************------+", "+--------***********--------+");
+        System.out.printf("%-28s |*| %-27s |*| %-20s\n", "            Name", "           Number", "            Email");
+        System.out.printf("%-28s |*| %-27s |*| %-20s\n", "+--------***********-------+", "+-------************------+", "+--------***********--------+");
         for(Contact contact : inputContacts) {
             contact.printContact();
         }
-        System.out.printf("%-28s |*| %-28s |*| %-20s\n", "+--------***********-------+", "+-------************------+", "+--------***********--------+");
+        System.out.printf("%-28s |*| %-27s |*| %-20s\n", "+--------***********-------+", "+-------************------+", "+--------***********--------+");
     }
 
     public static boolean checkDuplicateNames(ArrayList<Contact> inputContacts, String inputName) {

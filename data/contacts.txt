@@ -2,3 +2,7 @@ Chris Pratt,210-999-9999,JabroniJabron@rockbottom.com
 Keanu Reeves,210-789-1776,NEO@gmail.com
 Nicholas Cage,713-923-2323,nicholasRage@yahoo.com
 Dwayne "The Rock" Johnson,696-696-9696,IfYaSmell@gmail.com
+Tiger Woods,432-942-0010,thewood@netscape.net
+Xi Jinping,234-567-8910,winniethepoo@firewall.china
+Charlie Kelly,    n/a,pepesilvia@cats.cat
+Oprah Winfrey,233-534-7000,yougetacar@gmail.com
