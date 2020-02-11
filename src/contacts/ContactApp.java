@@ -16,30 +16,38 @@ public class ContactApp {
         String newContactName;
         String newContactNumber;
         String newContactEmail;
+        String deleteContactName;
 
-        System.out.printf("%-20s |*| %-27s |*| %20s\n", "     **********     ", "Welcome to Contacts Manager", "     **********     ");
+        deleteContact(contacts,"Satan");
+
+        System.out.printf("%-28s |*| %-27s |*| %-20s\n", "         **********", "Welcome to Contacts Manager", "         **********");
 
         while(true) {
             System.out.println("1 - See Contacts");
             System.out.println("2 - Add a Contact");
-            System.out.println("3 - Exit");
+            System.out.println("3 - Delete Contact");
+            System.out.println("4 - Exit");
             userInput = input.getInt("Selection: ");
             if(userInput == 1) {
                 printContacts(contacts);
             } else if (userInput == 2) {
                 newContactName = input.getString("New Contact Name: ");
-                if(checkDuplicateNames(contacts, newContactName)) {
+                if (checkDuplicateNames(contacts, newContactName)) {
                     System.out.println("This name already exists. Would you like to overwrite it? (y/n)");
                     String overWriteName = input.getString();
-                    if(overWriteName.toLowerCase().equals("n")) {
+                    if (overWriteName.toLowerCase().equals("n")) {
                         continue;
                     }
                 }
+                deleteContact(contacts, newContactName);
                 newContactNumber = input.getString("New Contact Phone Number: ");
                 newContactEmail = input.getString("New Contact Email: ");
                 Contact newContact = new Contact(newContactName, newContactNumber, newContactEmail);
                 contacts.add(newContact);
             } else if (userInput == 3) {
+                deleteContactName = input.getString("Which contact would you like to Delete?: ");
+                deleteContact(contacts, deleteContactName);
+            } else if (userInput == 4) {
                 System.out.println("Goodbye.");
                 updateContactsFile(contacts);
                 break;
@@ -80,10 +88,11 @@ public class ContactApp {
 
     public static void printContacts(ArrayList<Contact> inputContacts){
         System.out.println("");
-        System.out.printf("%-20s |*| %-27s |*| %20s\n", "        Name        ", "          Number           ", "       Email        ");
+        System.out.printf("%-28s |*| %-27s |*| %-20s\n", "           Name", "          Number", "           Email");
         for(Contact contact : inputContacts) {
             contact.printContact();
         }
+        System.out.println("");
     }
 
     public static boolean checkDuplicateNames(ArrayList<Contact> inputContacts, String inputName) {
@@ -95,5 +104,8 @@ public class ContactApp {
         return false;
     }
 
+    public static void deleteContact(ArrayList<Contact> inputContacts, String toDelete) {
+        inputContacts.removeIf(contact -> contact.getName().equals(toDelete));
+    }
 
 }
