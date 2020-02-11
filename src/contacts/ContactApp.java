@@ -26,8 +26,8 @@ public class ContactApp {
             if(userInput == 1) {
                 printContacts(contacts);
             } else if (userInput == 2) {
-                ArrayList<Contact> temporaryContactList = sortContacts(contacts);
-                printContacts(temporaryContactList);
+                ArrayList<Contact> temporaryContactList = (ArrayList<Contact>) contacts.clone();
+                printContacts(sortContacts(temporaryContactList));
             } else if (userInput == 3) {
                 newContactName = input.getString("New Contact Name: ");
                 if (checkDuplicateNames(contacts, newContactName)) {
