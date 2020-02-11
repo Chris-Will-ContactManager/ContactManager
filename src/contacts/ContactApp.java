@@ -1,23 +1,50 @@
+package contacts;
+
+import util.Input;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class ContactApp {
     public static void main(String[] args) {
-
         ArrayList<Contact> contacts = parseContacts("data", "contacts.txt");
+        Input input = new Input();
+        int userInput = 1;
+        String newContactName;
+        String newContactNumber;
+        String newContactEmail;
 
-        Scanner userInput = new Scanner(System.in);
         System.out.printf("%-20s |*| %-27s |*| %20s\n", "     **********     ", "Welcome to Contacts Manager", "     **********     ");
-        System.out.printf("%-20s |*| %-27s |*| %20s\n", "        Name        ", "          Number           ", "       Email        ");
 
-        printContacts(contacts);
-//        updateContactsFile(contacts);
+        while(true) {
+            System.out.println("1 - See Contacts");
+            System.out.println("2 - Add a Contact");
+            System.out.println("3 - Exit");
+            userInput = input.getInt("Selection: ");
+            if(userInput == 1) {
+                printContacts(contacts);
+            } else if (userInput == 2) {
+                newContactName = input.getString("New Contact Name: ");
+                if(checkDuplicateNames(contacts, newContactName)) {
+                    System.out.println("This name already exists. Would you like to overwrite it? (y/n)");
+                    String overWriteName = input.getString();
+                    if(overWriteName.toLowerCase().equals("n")) {
+                        continue;
+                    }
+                }
+                newContactNumber = input.getString("New Contact Phone Number: ");
+                newContactEmail = input.getString("New Contact Email: ");
+                Contact newContact = new Contact(newContactName, newContactNumber, newContactEmail);
+                contacts.add(newContact);
+            } else if (userInput == 3) {
+                System.out.println("Goodbye.");
+                updateContactsFile(contacts);
+                break;
+            }
+        }
 
     }
 
@@ -53,9 +80,19 @@ public class ContactApp {
 
     public static void printContacts(ArrayList<Contact> inputContacts){
         System.out.println("");
+        System.out.printf("%-20s |*| %-27s |*| %20s\n", "        Name        ", "          Number           ", "       Email        ");
         for(Contact contact : inputContacts) {
             contact.printContact();
         }
+    }
+
+    public static boolean checkDuplicateNames(ArrayList<Contact> inputContacts, String inputName) {
+        for(Contact contact : inputContacts) {
+            if(inputName.equals(contact.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

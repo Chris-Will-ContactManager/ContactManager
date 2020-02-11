@@ -1,3 +1,5 @@
+package contacts;
+
 import java.awt.*;
 
 public class Contact {
