@@ -20,13 +20,15 @@ public class ContactApp {
 
         deleteContact(contacts,"Satan");
 
-        System.out.printf("%-28s |*| %-27s |*| %-20s\n", "         **********", "Welcome to Contacts Manager", "         **********");
+        System.out.printf("%-28s |*| %-28s |*| %-28s\n", "+--------***********-------+", "Welcome to Contacts Manager", "+--------***********--------+");
 
         while(true) {
-            System.out.println("1 - See Contacts");
-            System.out.println("2 - Add a Contact");
-            System.out.println("3 - Delete Contact");
-            System.out.println("4 - Exit");
+            System.out.printf("%-28s |*| %-28s |*| %-28s\n", "1 - See Contacts", "     2 - Add a Contact", "3 - Delete Contact");
+            System.out.printf("%-28s |*| %-28s |*| %-28s\n", "4 - Exit", "", "");
+//            System.out.println("1 - See Contacts");
+//            System.out.println("2 - Add a Contact");
+//            System.out.println("3 - Delete Contact");
+//            System.out.println("4 - Exit");
             userInput = input.getInt("Selection: ");
             if(userInput == 1) {
                 printContacts(contacts);
@@ -88,11 +90,12 @@ public class ContactApp {
 
     public static void printContacts(ArrayList<Contact> inputContacts){
         System.out.println("");
-        System.out.printf("%-28s |*| %-27s |*| %-20s\n", "           Name", "          Number", "           Email");
+        System.out.printf("%-28s |*| %-28s |*| %-20s\n", "            Name", "           Number", "            Email");
+        System.out.printf("%-28s |*| %-28s |*| %-20s\n", "+--------***********-------+", "+-------************------+", "+--------***********--------+");
         for(Contact contact : inputContacts) {
             contact.printContact();
         }
-        System.out.println("");
+        System.out.printf("%-28s |*| %-28s |*| %-20s\n", "+--------***********-------+", "+-------************------+", "+--------***********--------+");
     }
 
     public static boolean checkDuplicateNames(ArrayList<Contact> inputContacts, String inputName) {
