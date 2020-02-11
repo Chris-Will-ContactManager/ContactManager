@@ -14,7 +14,7 @@ public class Contact {
     }
 
     public void printContact() {
-        System.out.printf("%-20s |*| %-27s |*| %-20s\n", this.name, "       "+ this.number + "      ", this.email);
+        System.out.printf("%-28s |*| %-27s |*| %-20s\n", this.name, "       "+ this.number + "      ", this.email);
     }
 
     public void setName(String inputName) {
