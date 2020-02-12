@@ -22,7 +22,7 @@ public class ContactApp {
 
         while(true) {
             System.out.printf("%-28s |*| %-27s |*| %-28s\n", "1 - See Contacts", "     2 - Sort Contacts", "3 - Add Contact");
-            System.out.printf("%-28s |*| %-27s |*| %-28s\n", "4 - Delete Contact", "   5 - Search Contacts", "     6 - Exit");
+            System.out.printf("%-28s |*| %-27s |*| %-28s\n", "4 - Delete Contact", "    5 - Search Contacts", "6 - Exit");
             userInput = input.getInt("Selection: ");
             if(userInput == 1) {
                 printContacts(contacts);
