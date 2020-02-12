@@ -1,7 +1,5 @@
 package contacts;
 
-import java.awt.*;
-
 public class Contact {
     private String name;
     private String number;
