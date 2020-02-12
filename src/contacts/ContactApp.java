@@ -16,12 +16,13 @@ public class ContactApp {
         String newContactNumber;
         String newContactEmail;
         String deleteContactName;
+        String userSearch;
 
         System.out.printf("\n%-28s |*| %-27s |*| %-28s\n", "+--------***********-------+", "Welcome to Contacts Manager", "+--------***********--------+");
 
         while(true) {
             System.out.printf("%-28s |*| %-27s |*| %-28s\n", "1 - See Contacts", "     2 - Sort Contacts", "3 - Add Contact");
-            System.out.printf("%-28s |*| %-27s |*| %-28s\n", "4 - Delete Contact", "          5 - Exit", "");
+            System.out.printf("%-28s |*| %-27s |*| %-28s\n", "4 - Delete Contact", "   5 - Search Contacts", "     6 - Exit");
             userInput = input.getInt("Selection: ");
             if(userInput == 1) {
                 printContacts(contacts);
@@ -45,12 +46,29 @@ public class ContactApp {
                 deleteContactName = input.getString("Which contact would you like to Delete?: ");
                 deleteContact(contacts, deleteContactName);
             } else if (userInput == 5) {
+                userSearch = input.getString("Enter a name: ");
+                if(!searchContacts(contacts, userSearch)) {
+                    System.out.println("Sorry we couldn't find that contact.\n");
+                }
+            } else if (userInput == 6) {
                 System.out.println("Goodbye.");
                 updateContactsFile(contacts);
                 break;
             }
         }
 
+    }
+
+    public static boolean searchContacts(ArrayList<Contact> inputContacts, String searchName) {
+        boolean contactFound = false;
+        for (Contact contact : inputContacts) {
+            if(searchName.equals(contact.getName())) {
+                contact.printContact();
+                System.out.println("");
+                contactFound = true;
+            }
+        }
+        return contactFound;
     }
 
     public static ArrayList<Contact> sortContacts(ArrayList<Contact> inputContacts) {
