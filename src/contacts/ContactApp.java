@@ -17,7 +17,7 @@ public class ContactApp {
         String newContactEmail;
         String deleteContactName;
 
-        System.out.printf("%-28s |*| %-27s |*| %-28s\n", "+--------***********-------+", "Welcome to Contacts Manager", "+--------***********--------+");
+        System.out.printf("\n%-28s |*| %-27s |*| %-28s\n", "+--------***********-------+", "Welcome to Contacts Manager", "+--------***********--------+");
 
         while(true) {
             System.out.printf("%-28s |*| %-27s |*| %-28s\n", "1 - See Contacts", "     2 - Sort Contacts", "3 - Add Contact");
@@ -31,8 +31,7 @@ public class ContactApp {
             } else if (userInput == 3) {
                 newContactName = input.getString("New Contact Name: ");
                 if (checkDuplicateNames(contacts, newContactName)) {
-                    System.out.println("This name already exists. Would you like to overwrite it? (y/n)");
-                    String overWriteName = input.getString();
+                    String overWriteName = input.getString("This name already exists. Would you like to overwrite it? (y/n): ");
                     if (overWriteName.toLowerCase().equals("n")) {
                         continue;
                     }
