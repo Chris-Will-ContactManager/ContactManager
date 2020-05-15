@@ -104,7 +104,7 @@ public class ContactApp {
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
-    }
+    }..
 
     public static void printContacts(ArrayList<Contact> inputContacts){
         System.out.println("");
